@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.5.0.min.js"></script>
+	<style type="text/css">
+		html,body{
+			padding: 10px;
+			background-color: black;
+			color: green;
+			font-size: x-large;
+			font-family: "Ubuntu Mono", "Lucida Console", Monaco, monospace;
+		}
+		td{
+			padding: 0.5em 0 0 0.5em;
+		}
+		#words, #strings{
+			padding: 0 0 0 2em !important;
+			margin: 0 !important;
+		}
+	</style>
+</head>
+<body>
+	<script>
+		Array.prototype.sample = function(){
+			return this[Math.floor(Math.random()*this.length)];
+		}
+
+		if(localStorage.getItem("data")) {
+			$.get( "slowa.txt", function( data ) {
+				localStorage.setItem("data", data);
+				random()
+			});
+		}
+		else {
+			random()
+			randomStrings()
+		}
+
+		function random(){
+			var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+			for (var x=0; x<10; x++){
+				var result = '';
+				for ( var i = 0; i < 32; i++ ) {
+					result += characters.split("").sample();
+				}
+				$("#strings").append("<li>"+result+"</li>")
+			}
+
+			words=localStorage.getItem("data").split("\n")
+			for (var i=0;i<10; i++){
+				word=words.sample().split("/")[0]
+				$("#words").append("<li>"+word+"</li>")
+			}
+		}
+
+
+	</script>
+	<h1>Offline random password generator</h1>
+	<table>
+		<tr>
+			<td>Words</td>
+			<td>32 character strings</td>
+		</tr>
+		<tr>
+			<td><ol id="words"></ol></td>
+			<td><ol id="strings"></ol></td>
+		</tr>
+	</table>
+	
+</body>
+</html>

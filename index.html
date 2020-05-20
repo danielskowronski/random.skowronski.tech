@@ -26,7 +26,7 @@
 			return this[Math.floor(Math.random()*this.length)];
 		}
 
-		if(localStorage.getItem("data")!=null) {
+		if(localStorage.getItem("data")===null) {
 			$.get( "slowa.txt", function( data ) {
 				localStorage.setItem("data", data);
 				random()
@@ -34,7 +34,6 @@
 		}
 		else {
 			random()
-			randomStrings()
 		}
 
 		function random(){

@@ -29,11 +29,13 @@
 		if(localStorage.getItem("data")===null) {
 			$.get( "slowa.txt", function( data ) {
 				localStorage.setItem("data", data);
-				random()
+				random();
 			});
 		}
 		else {
-			random()
+			$(function() {
+				random();
+			});
 		}
 
 		function random(){

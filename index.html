@@ -22,6 +22,40 @@
 </head>
 <body>
 	<script>
+		const wordsToGen=10;
+		const stringsToGen=10;
+		const phrasesToSelect=5;
+
+		// BEGIN https://stackoverflow.com/a/32756572
+		var diacritics = {
+			a: 'ÀÁÂÃÄÅàáâãäåĀāąĄ',
+			c: 'ÇçćĆčČ',
+			d: 'đĐďĎ',
+			e: 'ÈÉÊËèéêëěĚĒēęĘ',
+			i: 'ÌÍÎÏìíîïĪī',
+			l: 'łŁ',
+			n: 'ÑñňŇńŃ',
+			o: 'ÒÓÔÕÕÖØòóôõöøŌō',
+			r: 'řŘ',
+			s: 'ŠšśŚ',
+			t: 'ťŤ',
+			u: 'ÙÚÛÜùúûüůŮŪū',
+			y: 'ŸÿýÝ',
+			z: 'ŽžżŻźŹ'
+		}
+		function replaceDiacritics(text) {
+			for(var toLetter in diacritics) if(diacritics.hasOwnProperty(toLetter)) {
+				for(var i = 0, ii = diacritics[toLetter].length, fromLetter, toCaseLetter; i < ii; i++) {
+					fromLetter = diacritics[toLetter][i];
+					if(text.indexOf(fromLetter) < 0) continue;
+					toCaseLetter = fromLetter == fromLetter.toUpperCase() ? toLetter.toUpperCase() : toLetter;
+					text = text.replace(new RegExp(fromLetter, 'g'), toCaseLetter);
+				}
+			}
+			return text;
+		}
+		// END https://stackoverflow.com/a/32756572
+
 		Array.prototype.sample = function(){
 			return this[Math.floor(Math.random()*this.length)];
 		}
@@ -40,7 +74,7 @@
 
 		function random(){
 			var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-			for (var x=0; x<10; x++){
+			for (var x=0; x<wordsToGen; x++){
 				var result = '';
 				for ( var i = 0; i < 32; i++ ) {
 					result += characters.split("").sample();
@@ -49,9 +83,15 @@
 			}
 
 			words=localStorage.getItem("data").split("\n")
-			for (var i=0;i<10; i++){
+			for (var i=0;i<stringsToGen; i++){
 				word=words.sample().split("/")[0]
 				$("#words").append("<li>"+word+"</li>")
+			}
+
+			for (var i=0;i<phrasesToSelect; i++){
+				phrase=words.sample().split("/")[0]
+				$("#passphrase").append(replaceDiacritics(phrase))
+				if (i!=phrasesToSelect-1) $("#passphrase").append("-")
 			}
 		}
 
@@ -66,6 +106,10 @@
 		<tr>
 			<td><ol id="words"></ol></td>
 			<td><ol id="strings"></ol></td>
+		</tr>
+		<tr>
+			<td>Passphrase:</td>
+			<td id="passphrase" style="font-weight: bold"></td>			
 		</tr>
 	</table>
 	

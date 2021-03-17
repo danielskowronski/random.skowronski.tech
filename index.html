@@ -2,29 +2,43 @@
 <html>
 <head>
 	<meta charset="utf-8" />
-	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.5.0.min.js"></script>
+	<script src="jquery-3.5.0.min.js"></script>
 	<style type="text/css">
+	    @font-face {
+	      font-family: 'Ubuntu';
+	      font-style: normal;
+	      font-weight: 400;
+	      src: url(https://skowron.ski/assets/fonts/Ubuntu.woff2) format('woff2');
+	    }
+	    @font-face {
+	      font-family: 'Ubuntu Mono';
+	      font-style: normal;
+	      font-weight: 400;
+	      src: url(https://skowron.ski/assets/fonts/UbuntuMono.woff2) format('woff2');
+	    }
 		html,body{
 			padding: 10px;
 			background-color: black;
 			color: green;
-			font-size: x-large;
+			font-size: medium;
 			font-family: "Ubuntu Mono", "Lucida Console", Monaco, monospace;
+			overflow-x: hidden;
 		}
 		td{
 			padding: 0.5em 0 0 0.5em;
 		}
-		#words, #strings{
-			padding: 0 0 0 2em !important;
+		#words, #strings, #numbers1k, #numbers1M, #passphrase{
+			padding: 0 0 0 1em !important;
 			margin: 0 !important;
 		}
 	</style>
 </head>
 <body>
 	<script>
-		const wordsToGen=10;
-		const stringsToGen=10;
-		const phrasesToSelect=5;
+		const wordsToGen=16;
+		const stringsToGen=8;
+		const phrasesToSelect=8;
+		const numbersToGenerate=8;
 
 		// BEGIN https://stackoverflow.com/a/32756572
 		var diacritics = {
@@ -74,18 +88,28 @@
 
 		function random(){
 			var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-			for (var x=0; x<wordsToGen; x++){
-				var result = '';
-				for ( var i = 0; i < 32; i++ ) {
-					result += characters.split("").sample();
+
+			var strings=""
+
+			for (var l=16;l<=256;){
+				strings+="<h4>Length = "+l+"</h4>";
+
+				for (var x=0; x<stringsToGen; x++){
+					var result = '';
+					for ( var i = 0; i < l; i++ ) {
+						result += characters.split("").sample();
+					}
+					strings+=""+result+"<br />";
 				}
-				$("#strings").append("<li>"+result+"</li>")
+				
+				l*=2;
 			}
+			$("#strings").html(strings)
 
 			words=localStorage.getItem("data").split("\n")
-			for (var i=0;i<stringsToGen; i++){
+			for (var i=0;i<wordsToGen; i++){
 				word=words.sample().split("/")[0]
-				$("#words").append("<li>"+word+"</li>")
+				$("#words").append(""+word+"<br />")
 			}
 
 			for (var i=0;i<phrasesToSelect; i++){
@@ -93,25 +117,36 @@
 				$("#passphrase").append(replaceDiacritics(phrase))
 				if (i!=phrasesToSelect-1) $("#passphrase").append("-")
 			}
+
+			for (var i=0;i<numbersToGenerate; i++){
+				$("#numbers1k").append(""+Math.floor(Math.random() * 1000)+"<br />")
+			}
+			for (var i=0;i<numbersToGenerate; i++){
+				$("#numbers1M").append(""+Math.floor(Math.random() * 1000000)+"<br />")
+			}
 		}
 
 
 	</script>
-	<h1>Offline random password generator</h1>
-	<table>
-		<tr>
-			<td>Words</td>
-			<td>32 character strings</td>
-		</tr>
-		<tr>
-			<td><ol id="words"></ol></td>
-			<td><ol id="strings"></ol></td>
-		</tr>
-		<tr>
-			<td>Passphrase:</td>
-			<td id="passphrase" style="font-weight: bold"></td>			
-		</tr>
-	</table>
-	
+
+
+	<h1>Offline random generator</h1>
+
+	<h3>Random numbers 0-1k</h3>
+	<div id="numbers1k"></div>
+
+	<h3>Random numbers 0-1M</h3>
+	<div id="numbers1M"></div>
+
+	<h3>Random polish words</h3>
+	<div id="words"></div>
+
+	<h3>Random passphrase using polish words</h3>
+	<div id="passphrase"></div>
+
+	<h3>Random strings</h3>
+	<div id="strings"></div>
+
+
 </body>
 </html>

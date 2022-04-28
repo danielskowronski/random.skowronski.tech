@@ -1,40 +1,43 @@
 <!doctype html>
 <html>
 <head>
-  <meta charset="utf-8" />
-  <title>scloud random</title>
-  <link rel="stylesheet" type="text/css" href="http://skowronski.cloud/scloud_assets/scloud.css" />
-  <script src="jquery-3.5.0.min.js"></script>
+	<meta charset="utf-8" />
+	<title>scloud random</title>
+	<link rel="stylesheet" type="text/css" href="http://skowronski.cloud/scloud_assets/scloud.css" />
+	<script src="jquery-3.5.0.min.js"></script>
 
-  <style>
-  	#random{
-  		font-family: 'Ubuntu Mono', monospace;
-  		font-size: 32px;
-  	}
-  	#regenerate{
-  		font-family: 'Ubuntu Mono', monospace;
-  		font-size: xx-large;
-  		padding: 10px;
-  	}
-  	td{
-  		padding-left:     10px;
-  		padding-right:    10px;
-  		padding-top:       5px;
-  		padding-bottom:    5px;
+	<style>
+		body{
+			padding: 1vw;
+		}
+		#random{
+			font-family: 'Ubuntu Mono', monospace;
+			font-size: 32px;
+		}
+		#regenerate{
+			font-family: 'Ubuntu Mono', monospace;
+			font-size: 3vw;
+			padding: 10px;
+		}
+		td{
+			padding-left:     10px;
+			padding-right:    10px;
+			padding-top:       5px;
+			padding-bottom:    5px;
 
-  		text-align: center;
+			text-align: center;
+			font-size: 1.95vw;
 
-  		white-space: nowrap;
-  		word-break: break-all;
-  	}
-  	.header{
-  		text-align: right;
-  		font-weight: bold;
-  		min-width: 5em;
-  	}
+			white-space: nowrap;
+			word-break: break-all;
+		}
+		.header{
+			text-align: right;
+			font-weight: bold;
+		}
 
 
-  </style>
+	</style>
 </head>
 <body>
 <h1>
@@ -51,7 +54,7 @@
 </h1>
 
 <button id="regenerate" onClick="start_routine()">regenerate</button><br /><br />
-<table id="random">
+<table id="random" border=1>
 	<tr class="num1k"><td class="header">num <1k</td><td>111</td><td>111</td><td>111</td><td>111</td><td>111</td><td>111</td><td>111</td><td>111</td></tr>
 	<tr class="num1m"><td class="header">num <1M</td><td colspan="2">111111</td><td colspan="2">111111</td><td colspan="2">111111</td><td colspan="2">111111</td></tr>
 

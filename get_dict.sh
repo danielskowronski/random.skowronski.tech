@@ -8,3 +8,5 @@ iconv -f ISO-8859-2 slowa-iso.txt -t UTF-8 -o slowa.txt
 rm slowa-iso.txt
 
 wget https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.5.0.min.js
+
+wget https://raw.githubusercontent.com/dolph/dictionary/master/popular.txt

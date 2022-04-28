@@ -1,152 +1,151 @@
 <!doctype html>
 <html>
 <head>
-	<meta charset="utf-8" />
-	<script src="jquery-3.5.0.min.js"></script>
-	<style type="text/css">
-	    @font-face {
-	      font-family: 'Ubuntu';
-	      font-style: normal;
-	      font-weight: 400;
-	      src: url(https://skowron.ski/assets/fonts/Ubuntu.woff2) format('woff2');
-	    }
-	    @font-face {
-	      font-family: 'Ubuntu Mono';
-	      font-style: normal;
-	      font-weight: 400;
-	      src: url(https://skowron.ski/assets/fonts/UbuntuMono.woff2) format('woff2');
-	    }
-		html,body{
-			padding: 10px;
-			background-color: black;
-			color: green;
-			font-size: medium;
-			font-family: "Ubuntu Mono", "Lucida Console", Monaco, monospace;
-			overflow-x: hidden;
-		}
-		td{
-			padding: 0.5em 0 0 0.5em;
-		}
-		#words, #strings, #numbers1k, #numbers1M, #passphrase{
-			padding: 0 0 0 1em !important;
-			margin: 0 !important;
-		}
-	</style>
+  <meta charset="utf-8" />
+  <title>scloud random</title>
+  <link rel="stylesheet" type="text/css" href="http://skowronski.cloud/scloud_assets/scloud.css" />
+  <script src="jquery-3.5.0.min.js"></script>
+
+  <style>
+  	#random{
+  		font-family: 'Ubuntu Mono', monospace;
+  		font-size: 32px;
+  	}
+  	#regenerate{
+  		font-family: 'Ubuntu Mono', monospace;
+  		font-size: xx-large;
+  		padding: 10px;
+  	}
+  	td{
+  		padding-left:     10px;
+  		padding-right:    10px;
+  		padding-top:       5px;
+  		padding-bottom:    5px;
+
+  		text-align: center;
+
+  		white-space: nowrap;
+  		word-break: break-all;
+  	}
+  	.header{
+  		text-align: right;
+  		font-weight: bold;
+  		min-width: 5em;
+  	}
+
+
+  </style>
 </head>
 <body>
-	<script>
-		const wordsToGen=16;
-		const stringsToGen=8;
-		const phrasesToSelect=8;
-		const numbersToGenerate=8;
+<h1>
+    <table>
+        <tr>
+            <td>
+                <img src="http://skowronski.cloud/scloud_assets/logo_cloud.png" class="logo" />
+            </td>
+            <td style="padding-left: 10px; font-size: 96px;" >
+                scloud random
+            </td>
+        </tr>
+    </table>
+</h1>
 
-		// BEGIN https://stackoverflow.com/a/32756572
-		var diacritics = {
-			a: 'ÀÁÂÃÄÅàáâãäåĀāąĄ',
-			c: 'ÇçćĆčČ',
-			d: 'đĐďĎ',
-			e: 'ÈÉÊËèéêëěĚĒēęĘ',
-			i: 'ÌÍÎÏìíîïĪī',
-			l: 'łŁ',
-			n: 'ÑñňŇńŃ',
-			o: 'ÒÓÔÕÕÖØòóôõöøŌō',
-			r: 'řŘ',
-			s: 'ŠšśŚ',
-			t: 'ťŤ',
-			u: 'ÙÚÛÜùúûüůŮŪū',
-			y: 'ŸÿýÝ',
-			z: 'ŽžżŻźŹ'
-		}
-		function replaceDiacritics(text) {
-			for(var toLetter in diacritics) if(diacritics.hasOwnProperty(toLetter)) {
-				for(var i = 0, ii = diacritics[toLetter].length, fromLetter, toCaseLetter; i < ii; i++) {
-					fromLetter = diacritics[toLetter][i];
-					if(text.indexOf(fromLetter) < 0) continue;
-					toCaseLetter = fromLetter == fromLetter.toUpperCase() ? toLetter.toUpperCase() : toLetter;
-					text = text.replace(new RegExp(fromLetter, 'g'), toCaseLetter);
-				}
-			}
-			return text;
-		}
-		// END https://stackoverflow.com/a/32756572
+<button id="regenerate" onClick="start_routine()">regenerate</button><br /><br />
+<table id="random">
+	<tr class="num1k"><td class="header">num <1k</td><td>111</td><td>111</td><td>111</td><td>111</td><td>111</td><td>111</td><td>111</td><td>111</td></tr>
+	<tr class="num1m"><td class="header">num <1M</td><td colspan="2">111111</td><td colspan="2">111111</td><td colspan="2">111111</td><td colspan="2">111111</td></tr>
 
-		Array.prototype.sample = function(){
-			return this[Math.floor(Math.random()*this.length)];
-		}
+	<tr class="pl"><td class="header">word PL</td><td colspan="2">aaaaaaaaaa</td><td colspan="2">aaaaaaaaaa</td><td colspan="2">aaaaaaaaaa</td><td colspan="2">aaaaaaaaaa</td></tr>
+	<tr class="pl"><td class="header">word PL</td><td colspan="2">aaaaaaaaaa</td><td colspan="2">aaaaaaaaaa</td><td colspan="2">aaaaaaaaaa</td><td colspan="2">aaaaaaaaaa</td></tr>
+	<tr class="en"><td class="header">word EN</td><td colspan="2">aaaaaaaaaa</td><td colspan="2">aaaaaaaaaa</td><td colspan="2">aaaaaaaaaa</td><td colspan="2">aaaaaaaaaa</td></tr>
+	<tr class="en"><td class="header">word EN</td><td colspan="2">aaaaaaaaaa</td><td colspan="2">aaaaaaaaaa</td><td colspan="2">aaaaaaaaaa</td><td colspan="2">aaaaaaaaaa</td></tr>
+	
+	<tr class="rand16"><td class="header">len=16</td><td colspan="2">aaaaaaaaaaaaaaaa</td><td colspan="2">aaaaaaaaaaaaaaaa</td><td colspan="2">aaaaaaaaaaaaaaaa</td><td colspan="2">aaaaaaaaaaaaaaaa</td></tr>
+	<tr class="rand32"><td class="header">len=32</td><td colspan="4">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td><td colspan="4">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td></tr>
+	<tr class="rand32"><td class="header">len=32</td><td colspan="4">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td><td colspan="4">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td></tr>
+	<tr class="rand64"><td class="header">len=64</td><td colspan="8">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td></tr>
+	<tr class="rand64"><td class="header">len=64</td><td colspan="8">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td></tr>
+	<tr class="rand64"><td class="header">len=64</td><td colspan="8">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td></tr>
+	<tr class="rand64"><td class="header">len=64</td><td colspan="8">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td></tr>
+</table>
 
-		if(localStorage.getItem("data")===null) {
-			$.get( "slowa.txt", function( data ) {
-				localStorage.setItem("data", data);
-				random();
+<script>
+	Array.prototype.sample = function(){
+		return this[Math.floor(Math.random()*this.length)];
+	}
+
+	if(localStorage.getItem("slowa")===null || localStorage.getItem("words")===null) {
+		$.get( "slowa.txt", function( data ) {
+			localStorage.setItem("slowa", data);
+			$.get( "popular.txt", function( data2 ) {
+				localStorage.setItem("words", data2 );
+				start_routine();
 			});
+		});
+	}
+	else {
+		$(function() {
+			start_routine();
+		});
+	}
+
+	function start_routine(){
+		$.each($(".rand16 td:not(.header)"), function(index, td){
+			$(td).html(random_string(16));
+		});
+		$.each($(".rand32 td:not(.header)"), function(index, td){
+			$(td).html(random_string(32));
+		});
+		$.each($(".rand64 td:not(.header)"), function(index, td){
+			$(td).html(random_string(64));
+		});
+
+		$.each($(".pl td:not(.header)"), function(index, td){
+			$(td).html(select_word("slowa"));
+		});
+		$.each($(".en td:not(.header)"), function(index, td){
+			$(td).html(select_word("words"));
+		});
+
+		$.each($(".num1k td:not(.header)"), function(index, td){
+			$(td).html(random_number(1000, false));
+		});
+		$.each($(".num1m td:not(.header)"), function(index, td){
+			$(td).html(random_number(1000000, true));
+		});
+	}
+	function select_word(dictionary){
+		var words=localStorage.getItem(dictionary).split("\n");
+		var selected=words.sample();
+		if (dictionary=="slowa") {
+			return selected.split("/")[0];
 		}
 		else {
-			$(function() {
-				random();
-			});
+			return selected;
+		}
+	}
+
+	function random_string(len){
+		const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+		var result="";
+		for ( var i = 0; i < len; i++ ) {
+			result += characters.split("").sample();
 		}
 
-		function random(){
-			var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+		return result;
+	}
 
-			var strings=""
-
-			for (var l=16;l<=256;){
-				strings+="<h4>Length = "+l+"</h4>";
-
-				for (var x=0; x<stringsToGen; x++){
-					var result = '';
-					for ( var i = 0; i < l; i++ ) {
-						result += characters.split("").sample();
-					}
-					strings+=""+result+"<br />";
-				}
-				
-				l*=2;
-			}
-			$("#strings").html(strings)
-
-			words=localStorage.getItem("data").split("\n")
-			for (var i=0;i<wordsToGen; i++){
-				word=words.sample().split("/")[0]
-				$("#words").append(""+word+"<br />")
-			}
-
-			for (var i=0;i<phrasesToSelect; i++){
-				phrase=words.sample().split("/")[0]
-				$("#passphrase").append(replaceDiacritics(phrase))
-				if (i!=phrasesToSelect-1) $("#passphrase").append("-")
-			}
-
-			for (var i=0;i<numbersToGenerate; i++){
-				$("#numbers1k").append(""+Math.floor(Math.random() * 1000)+"<br />")
-			}
-			for (var i=0;i<numbersToGenerate; i++){
-				$("#numbers1M").append(""+Math.floor(Math.random() * 1000000)+"<br />")
-			}
+	function random_number(max, pad){
+		var num = Math.floor(Math.random() * max);
+		if (pad) {
+			return String(num).padStart(String(max).len, "0");
 		}
-
-
-	</script>
-
-
-	<h1>Offline random generator</h1>
-
-	<h3>Random numbers 0-1k</h3>
-	<div id="numbers1k"></div>
-
-	<h3>Random numbers 0-1M</h3>
-	<div id="numbers1M"></div>
-
-	<h3>Random polish words</h3>
-	<div id="words"></div>
-
-	<h3>Random passphrase using polish words</h3>
-	<div id="passphrase"></div>
-
-	<h3>Random strings</h3>
-	<div id="strings"></div>
-
+		else {
+			return String(num);
+		}
+	}
+</script>
 
 </body>
 </html>

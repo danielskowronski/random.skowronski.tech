@@ -17,13 +17,13 @@
 		#regenerate{
 			font-family: 'Ubuntu Mono', monospace;
 			font-size: 3vw;
-			padding: 10px;
+			padding: 1vw;
 		}
 		td{
-			padding-left:     10px;
-			padding-right:    10px;
-			padding-top:       5px;
-			padding-bottom:    5px;
+			padding-left:     1.0vw;
+			padding-right:    1.0vw;
+			padding-top:      0.5px;
+			padding-bottom:   0.5px;
 
 			text-align: center;
 			font-size: 1.95vw;
@@ -35,7 +35,15 @@
 			text-align: right;
 			font-weight: bold;
 		}
-
+		.rand128 td:not(.header){
+			font-size: 1vw;
+		}
+		
+		@media only screen and (max-width: 1000px) {
+			.rand128 td:not(.header){
+				font-size: 0.75vw;
+			}
+		}
 
 	</style>
 </head>
@@ -63,13 +71,15 @@
 	<tr class="en"><td class="header">word EN</td><td colspan="2">aaaaaaaaaa</td><td colspan="2">aaaaaaaaaa</td><td colspan="2">aaaaaaaaaa</td><td colspan="2">aaaaaaaaaa</td></tr>
 	<tr class="en"><td class="header">word EN</td><td colspan="2">aaaaaaaaaa</td><td colspan="2">aaaaaaaaaa</td><td colspan="2">aaaaaaaaaa</td><td colspan="2">aaaaaaaaaa</td></tr>
 	
-	<tr class="rand16"><td class="header">len=16</td><td colspan="2">aaaaaaaaaaaaaaaa</td><td colspan="2">aaaaaaaaaaaaaaaa</td><td colspan="2">aaaaaaaaaaaaaaaa</td><td colspan="2">aaaaaaaaaaaaaaaa</td></tr>
-	<tr class="rand32"><td class="header">len=32</td><td colspan="4">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td><td colspan="4">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td></tr>
-	<tr class="rand32"><td class="header">len=32</td><td colspan="4">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td><td colspan="4">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td></tr>
-	<tr class="rand64"><td class="header">len=64</td><td colspan="8">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td></tr>
-	<tr class="rand64"><td class="header">len=64</td><td colspan="8">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td></tr>
-	<tr class="rand64"><td class="header">len=64</td><td colspan="8">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td></tr>
-	<tr class="rand64"><td class="header">len=64</td><td colspan="8">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td></tr>
+	<tr class="rand16" ><td class="header">len= 16</td><td colspan="2">aaaaaaaaaaaaaaaa</td><td colspan="2">aaaaaaaaaaaaaaaa</td><td colspan="2">aaaaaaaaaaaaaaaa</td><td colspan="2">aaaaaaaaaaaaaaaa</td></tr>
+	<tr class="rand32" ><td class="header">len= 32</td><td colspan="4">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td><td colspan="4">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td></tr>
+	<tr class="rand32" ><td class="header">len= 32</td><td colspan="4">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td><td colspan="4">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td></tr>
+	<tr class="rand64" ><td class="header">len= 64</td><td colspan="8">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td></tr>
+	<tr class="rand64" ><td class="header">len= 64</td><td colspan="8">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td></tr>
+	<tr class="rand64" ><td class="header">len= 64</td><td colspan="8">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td></tr>
+	<tr class="rand64" ><td class="header">len= 64</td><td colspan="8">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td></tr>
+	<tr class="rand128"><td class="header">len=128</td><td colspan="8">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td></tr>
+	<tr class="rand128"><td class="header">len=128</td><td colspan="8">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td></tr>
 </table>
 
 <script>
@@ -93,14 +103,17 @@
 	}
 
 	function start_routine(){
-		$.each($(".rand16 td:not(.header)"), function(index, td){
+		$.each($(".rand16  td:not(.header)"), function(index, td){
 			$(td).html(random_string(16));
 		});
-		$.each($(".rand32 td:not(.header)"), function(index, td){
+		$.each($(".rand32  td:not(.header)"), function(index, td){
 			$(td).html(random_string(32));
 		});
-		$.each($(".rand64 td:not(.header)"), function(index, td){
+		$.each($(".rand64  td:not(.header)"), function(index, td){
 			$(td).html(random_string(64));
+		});
+		$.each($(".rand128 td:not(.header)"), function(index, td){
+			$(td).html(random_string(128));
 		});
 
 		$.each($(".pl td:not(.header)"), function(index, td){

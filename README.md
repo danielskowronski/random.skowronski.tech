@@ -1,9 +1,9 @@
-# Offline random generator
+# [random.skowronski.tech](https://random.skowronski.tech/)
 
-Simple HTML+JS based generator of random numbers, strings and words. Polish and English dictionaries cached in browser's `localStorage` to save bandwith.
+Simple one-page randomness generator - numers, words, strings.
 
-## My instance - https://skowronski.cloud/random/
+Features:
 
-## Demo
-
-![](demo.jpg)
+- word dictionary cached in browser's `localStorage` to save bandwith and enable true offline mode
+- passowrd are copied to clipboard on click
+- password string coloring based on character class

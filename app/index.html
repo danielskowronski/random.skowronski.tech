@@ -1,0 +1,432 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>random.skowronski.tech</title>
+    
+    <style>
+        body {
+            padding: 5px;
+            font-family: monospace;
+            background-color: black;
+            color: white;
+            font-size: large;
+        }
+        button {
+            font-family: monospace;
+            font-size: x-large;
+
+            border: 0;
+            background-color: #2E3E80;
+            color: white;
+        }
+        hr {
+            height: 2px;
+            border-width: 0;
+            background-color:#2E3E80;
+        }
+
+        img.logo{
+            height: 32px;
+        }
+        h1 {
+            font-size: 40px;
+        }
+        h2 {
+            font-size: 32px;
+        }
+
+        table, th, td {
+            border: 2px solid #2E3E80;
+            border-collapse: collapse;
+        }
+        table {
+            border-width: 4px;
+        }
+
+        td, th {
+            padding-left:   2px;
+            padding-right:  2px;
+            padding-top:    1px;
+            padding-bottom: 1px;
+
+            text-align: center;
+            word-wrap: break-word;
+        }
+
+        #words, #numbers, #strings {
+            font-family: monospace;
+            font-size: min(2vw, 20px);
+        }
+
+        #words {
+            max-width: 1024px;
+        }
+
+        #strings td.value{
+            word-break: break-all;
+        }
+
+        #strings td.type {
+            text-align: right;
+            width: 16px;
+        }
+        #strings td.length {
+            text-align: right;
+            width: 3ch;
+        }
+
+        #strings .value {
+            width: min(12vw, 120px); /* 6*$font_size */
+        }
+
+        .divider {
+            height: 0;
+            margin: 0;
+            padding: 0;
+            width: 0;
+        }
+
+        .digit {
+            color: lightgreen;
+        }
+        .special {
+            color: yellow;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>
+        <img class="logo" src="data:image/png;base64,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" />
+        random.skowronski.tech
+    </h1>
+
+    <button id="regenerate" onClick="start_routine()">generate again</button><br /><br />
+
+    <h2>word salad</h2>
+    <table id="words">
+        <tr><td class="value"></td></tr>
+    </table>
+
+    <h2>random numbers</h2>
+    <table id="numbers">
+        <tr>
+            <th>digits</th>
+            <th class="divider"></th>
+            <th class="value">0x00</th>
+            <th class="value">0x01</th>
+            <th class="value">0x02</th>
+            <th class="value">0x03</th>
+            <th class="value">0x04</th>
+            <th class="value">0x05</th>
+            <th class="value">0x06</th>
+            <th class="value">0x07</th>
+        </tr>
+
+        <tr class="divider"><td colspan="10" class="divider"></td></tr>
+
+        <tr data-max="9999"><td>4</td><td class="divider"></td><td class="value"></td><td class="value"></td><td class="value"></td><td class="value"></td><td class="value"></td><td class="value"></td><td class="value"></td><td class="value"></td></tr>
+        <tr data-max="99999999"><td>8</td><td class="divider"></td><td class="value" colspan="2"></td><td class="value" colspan="2"></td><td class="value" colspan="2"></td><td class="value" colspan="2"></td></tr>
+        <tr data-max="9999999999999999"><td>16</td><td class="divider"></td><td class="value" colspan="4"></td><td class="value" colspan="4"></td></tr>
+    </table>
+
+    <h2>random strings</h2>
+    types:
+    <li><strong>16</strong> = hexadecimal</li>
+    <li><strong>AN</strong> = alphanumeric</li>
+    <li><strong>SP</strong> = alphanumeric + <i>safe</i> special characters (<strong>!,-.:_</strong>)</li>
+    <li><strong>APPLE</strong> = alphanumeric, always 20 characters in form 123456-123456-123456 </li>
+    <br />
+    <table id="strings">
+        <tr class="header">
+            <th class="type">TY<br/>PE</th>
+            <th class="length">LEN</th>
+            <td class="divider"></td>
+            <th class="value">0x00</th>
+            <th class="value">0x01</th>
+            <th class="value">0x02</th>
+            <th class="value">0x03</th>
+            <th class="value">0x04</th>
+            <th class="value">0x05</th>
+            <th class="value">0x06</th>
+            <th class="value">0x07</th>
+        </tr>
+
+        <tr class="divider"><td colspan="11" class="divider"></td></tr>
+
+        <tr data-length="8"   data-type="hex"     ><td class="type">16</td><td class="length">  8</td><td class="divider"></td>
+            <td class="value"></td><td class="value"></td>
+            <td class="value"></td><td class="value"></td>
+            <td class="value"></td><td class="value"></td>
+            <td class="value"></td><td class="value"></td>
+        </tr>
+        <tr data-length="8"   data-type="alphanum"><td class="type">AN</td><td class="length">  8</td><td class="divider"></td>
+            <td class="value"></td><td class="value"></td>
+            <td class="value"></td><td class="value"></td>
+            <td class="value"></td><td class="value"></td>
+            <td class="value"></td><td class="value"></td>
+        </tr>
+        <tr data-length="8"   data-type="safe"    ><td class="type">SP</td><td class="length">  8</td><td class="divider"></td>
+            <td class="value"></td><td class="value"></td>
+            <td class="value"></td><td class="value"></td>
+            <td class="value"></td><td class="value"></td>
+            <td class="value"></td><td class="value"></td>
+        </tr>
+
+        <tr class="divider"><td colspan="11" class="divider"></td></tr>
+
+        <tr data-length="10"  data-type="alphanum"><td class="type">AN</td><td class="length"> 10</td><td class="divider"></td>
+            <td class="value" colspan="2"></td><td class="value" colspan="2"></td>
+            <td class="value" colspan="2"></td><td class="value" colspan="2"></td>
+        </tr>
+        <tr data-length="10"  data-type="safe"    ><td class="type">SP</td><td class="length"> 10</td><td class="divider"></td>
+            <td class="value" colspan="2"></td><td class="value" colspan="2"></td>
+            <td class="value" colspan="2"></td><td class="value" colspan="2"></td>
+        </tr>
+        <tr data-length="12"  data-type="alphanum"><td class="type">AN</td><td class="length"> 12</td><td class="divider"></td>
+            <td class="value" colspan="2"></td><td class="value" colspan="2"></td>
+            <td class="value" colspan="2"></td><td class="value" colspan="2"></td>
+        </tr>
+        <tr data-length="12"  data-type="safe"    ><td class="type">SP</td><td class="length"> 12</td><td class="divider"></td>
+            <td class="value" colspan="2"></td><td class="value" colspan="2"></td>
+            <td class="value" colspan="2"></td><td class="value" colspan="2"></td>
+        </tr>
+
+        <tr class="divider"><td colspan="11" class="divider"></td></tr>
+
+        <tr data-length="16"  data-type="hex"     ><td class="type">16</td><td class="length"> 16</td><td class="divider"></td>
+            <td class="value" colspan="2"></td><td class="value" colspan="2"></td>
+            <td class="value" colspan="2"></td><td class="value" colspan="2"></td>
+        </tr>
+        <tr data-length="16"  data-type="alphanum"><td class="type">AN</td><td class="length"> 16</td><td class="divider"></td>
+            <td class="value" colspan="2"></td><td class="value" colspan="2"></td>
+            <td class="value" colspan="2"></td><td class="value" colspan="2"></td>
+        </tr>
+        <tr data-length="16"  data-type="safe"    ><td class="type">SP</td><td class="length"> 16</td><td class="divider"></td>
+            <td class="value" colspan="2"></td><td class="value" colspan="2"></td>
+            <td class="value" colspan="2"></td><td class="value" colspan="2"></td>
+        </tr>
+
+        <tr class="divider"><td colspan="11" class="divider"></td></tr>
+
+        <tr data-length="20"  data-type="apple"   ><td class="type" colspan="2">APPLE</td><td class="divider"></td>
+            <td class="value" colspan="4"></td><td class="value" colspan="4"></td>
+        </tr>  
+        <tr data-length="20"  data-type="apple"   ><td class="type" colspan="2">APPLE</td><td class="divider"></td>
+            <td class="value" colspan="4"></td><td class="value" colspan="4"></td>
+        </tr>  
+
+        <tr class="divider"><td colspan="11" class="divider"></td></tr>
+
+        <tr data-length="20"  data-type="alphanum"><td class="type">AN</td><td class="length"> 20</td><td class="divider"></td>
+            <td class="value" colspan="4"></td><td class="value" colspan="4"></td>
+        </tr>
+        <tr data-length="20"  data-type="safe"    ><td class="type">SP</td><td class="length"> 20</td><td class="divider"></td>
+            <td class="value" colspan="4"></td><td class="value" colspan="4"></td>
+        </tr>
+        <tr data-length="24"  data-type="alphanum"><td class="type">AN</td><td class="length"> 24</td><td class="divider"></td>
+            <td class="value" colspan="4"></td><td class="value" colspan="4"></td>
+        </tr>
+        <tr data-length="24"  data-type="safe"    ><td class="type">SP</td><td class="length"> 24</td><td class="divider"></td>
+            <td class="value" colspan="4"></td><td class="value" colspan="4"></td>
+        </tr>
+        <tr data-length="28"  data-type="alphanum"><td class="type">AN</td><td class="length"> 28</td><td class="divider"></td>
+            <td class="value" colspan="4"></td><td class="value" colspan="4"></td>
+        </tr>
+        <tr data-length="28"  data-type="safe"    ><td class="type">SP</td><td class="length"> 28</td><td class="divider"></td>
+            <td class="value" colspan="4"></td><td class="value" colspan="4"></td>
+        </tr>
+
+        <tr class="divider"><td colspan="11" class="divider"></td></tr>
+
+        <tr data-length="32"  data-type="hex"     ><td class="type">16</td><td class="length"> 32</td><td class="divider"></td>
+            <td class="value" colspan="4"></td><td class="value" colspan="4"></td>
+        </tr>
+        <tr data-length="32"  data-type="alphanum"><td class="type">AN</td><td class="length"> 32</td><td class="divider"></td>
+            <td class="value" colspan="4"></td><td class="value" colspan="4"></td>
+        </tr>
+        <tr data-length="32"  data-type="safe"    ><td class="type">SP</td><td class="length"> 32</td><td class="divider"></td>
+            <td class="value" colspan="4"></td><td class="value" colspan="4"></td>
+        </tr>
+
+        <tr class="divider"><td colspan="11" class="divider"></td></tr>
+
+        <tr data-length="64"  data-type="alphanum"><td class="type">AN</td><td class="length"> 64</td><td class="divider"></td>
+            <td class="value" colspan="8"></td>
+        </tr>
+        <tr data-length="64"  data-type="alphanum"><td class="type">AN</td><td class="length"> 64</td><td class="divider"></td>
+            <td class="value" colspan="8"></td>
+        </tr>
+        <tr data-length="64"  data-type="safe"    ><td class="type">SP</td><td class="length"> 64</td><td class="divider"></td>
+            <td class="value" colspan="8"></td>
+        </tr>
+        <tr data-length="64"  data-type="safe"    ><td class="type">SP</td><td class="length"> 64</td><td class="divider"></td>
+            <td class="value" colspan="8"></td>
+        </tr>
+
+        <tr class="divider"><td colspan="11" class="divider"></td></tr>
+
+        <tr data-length="127" data-type="alphanum"><td class="type">AN</td><td class="length">127</td><td class="divider"></td>
+            <td class="value" colspan="8"></td>
+        </tr>
+        <tr data-length="127" data-type="alphanum"><td class="type">AN</td><td class="length">127</td><td class="divider"></td>
+            <td class="value" colspan="8"></td>
+        </tr>
+        <tr data-length="127" data-type="safe"    ><td class="type">SP</td><td class="length">127</td><td class="divider"></td>
+            <td class="value" colspan="8"></td>
+        </tr>
+        <tr data-length="127" data-type="safe"    ><td class="type">SP</td><td class="length">127</td><td class="divider"></td>
+            <td class="value" colspan="8"></td>
+        </tr>
+    </table>
+    <br />
+    <br />
+    <button onclick="localStorage.clear();">clear localStorage (dicts)</button> 
+    <button onclick="download_dicts();">download dicts</button> 
+
+    <script>
+        Array.prototype.sample = function () {
+            return this[Math.floor(Math.random() * this.length)];
+        }
+
+        function event_clipboard(el) {
+            var text = el.textContent;
+            navigator.clipboard.writeText(text);
+        }
+
+        function download_dicts(){
+            fetch("https://raw.githubusercontent.com/dolph/dictionary/master/popular.txt").then(function(response) {
+                if (response.status == 200){
+                    return response.text();
+                }
+                else {
+                    return "dictionary_download_error_" + response.status;
+                }
+            }).then(function(text) {
+                localStorage.setItem("dict_en", text);
+
+                start_routine();
+            }).catch(function(err) {
+                localStorage.setItem("dict_en", "dictionary_download_error");
+                console.log("Fetch Error", err);
+            });
+        }
+
+        function colorize_string(text){
+            var exploded = text.split("");
+            for (var i=0; i<exploded.length; i++){
+                var ascii = exploded[i].charCodeAt(0);
+
+                if (ascii>=48 && ascii<=57) {
+                    exploded[i] = "<span class='digit'>"+exploded[i]+"</span>";
+                }
+                if (! ((ascii>=65 && ascii<=90) || (ascii>=97 && ascii<=122))) {
+                    exploded[i] = "<span class='special'>"+exploded[i]+"</span>";
+                }
+            }
+            return exploded.join("");
+        }
+
+
+        function select_word(dictionary) {
+            var words = localStorage.getItem(dictionary).split("\n");
+            var selected = words.sample();
+            return selected;
+        }
+
+        const lower = "abcdefghijklmnopqrstuvwxyz";
+        const upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        const numer = "0123456789";
+        const special_safe = "!,-.:_";
+        const special_owasp = "!\"#$%&'()*+,-./:;<=>?@[\]^_`{|}~";
+
+        function random_string(len, mode = "alphanum") {
+            var characters = "";
+            switch (mode) {
+                case "hex":
+                    characters = "ABCDEF" + numer;
+                    break;
+                case "alphanum":
+                case "apple":
+                    characters = lower + upper + numer;
+                    break;
+                case "safe":
+                    characters = lower + upper + numer + special_safe;
+                    break;
+                case "special":
+                    characters = lower + upper + numer + special_owasp;
+                    break;
+                default:
+                    characters = lower + upper + numer;
+                    break;
+            }
+
+            if (mode=="apple") {
+                len=20;
+            }
+
+            var result = "";
+            for (var i = 0; i < len; i++) {
+                result += characters.split("").sample();
+            }
+
+            if (mode=="apple") {
+                var exploded = result.split("");
+                exploded[6]="-";
+                exploded[14]="-";
+                result = exploded.join("");
+            }
+
+            return colorize_string(result);
+        }
+
+        function random_number(max, pad) {
+            var num = Math.floor(Math.random() * max);
+            if (pad) {
+                return String(num).padStart(String(max).len, "0");
+            }
+            else {
+                return String(num);
+            }
+        }
+
+        function start_routine() {
+            if (localStorage.getItem("dict_en") === null) {
+                download_dicts();
+            }
+
+            document.querySelectorAll("#numbers td.value").forEach((td, i) => {
+                var max = td.parentNode.getAttribute("data-max");
+
+                td.innerHTML=random_number(max, true);
+                td.removeAttribute("onclick");
+                td.setAttribute("onclick", "event_clipboard(this);");
+            });
+
+
+            document.querySelectorAll("#strings td.value").forEach((td, i) => {
+                var type = td.parentNode.getAttribute("data-type");
+                var length = td.parentNode.getAttribute("data-length");
+
+                td.innerHTML=random_string(length, type);
+                td.removeAttribute("onclick");
+                td.setAttribute("onclick", "event_clipboard(this);");
+            });
+
+            document.querySelectorAll("#words td.value").forEach((td, i) => {
+                var v = "";
+                for (var i=0; i<64; i++) {
+                    v += select_word("dict_en") + " ";
+                }
+                v = v.trim();
+                td.innerHTML=v;
+            });
+        }
+    </script>
+
+    <script>start_routine();</script>
+
+</body>
+
+</html>

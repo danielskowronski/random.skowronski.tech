@@ -1,7 +1,10 @@
 #!/bin/bash
+export CF_ZONE_ID="`cat terraform/zone_id.auto.tfvars.json | jq -r '.cf_zone_id'`"
+
+touch ./app/index.html
 aws s3 sync --delete ./app/ s3://random.skowronski.tech
 
-curl -X POST "https://api.cloudflare.com/client/v4/zones/6443f45f13776c3183e79b68443b4201/purge_cache" \
+curl -s -X POST "https://api.cloudflare.com/client/v4/zones/${CF_ZONE_ID}/purge_cache" \
      -H "Authorization: Bearer ${CLOUDFLARE_API_TOKEN}" \
      -H "Content-Type: application/json" \
-     --data '{"purge_everything":true}'
+     --data '{"purge_everything":true}' | jq
